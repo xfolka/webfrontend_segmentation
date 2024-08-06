@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="{{ url_for('static',filename='styles/main.css') }}">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+
+
+  <script>
+    // function myFunction() {
+    //   document.getElementById("demo").innerHTML = "YOU CLICKED ME!";
+    //   console.log("function called")
+    // }
+
+    function uploadFile() {
+      var myFile = document.getElementById('fileInput').files[0];
+
+
+      console.log("uploading file " + myFile)
+
+      var formData = new FormData();
+
+
+      // Add the file to the AJAX request.
+      formData.append('myfile', myFile.type );
+      formData.s
+
+      // Set up the request.
+      var xhr = new XMLHttpRequest();
+      xhr.overrideMimeType("application/octet-stream charset=x-user-defined-binary")
+
+      // Open the connection.
+      xhr.open('POST', '{{ api_prefix }}/upload', true);
+
+
+      // Set up a handler for when the task for the request is complete.
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          alert( 'Your upload is successful..');
+        } else {
+          alert( 'An error occurred during the upload. Try again.');
+        }
+      };
+
+      // Send the data.
+      xhr.send(formData);
+    }
+
+
+    // $.ajax({
+    //   type: "POST",
+    //   url: "{{ api_prefix }}/upload",
+    //   enctype: 'multipart/form-data',
+    //   processData: false,
+    //   contentType: false,
+    //   data: {
+    //     file: myFile
+    //   },
+    //   success: function () {
+    //     alert("Data Uploaded: ");
+    //   }
+    // });
+
+
+  </script>
+</head>
+
+<body>
+
+  <!-- <h1>The form element</h1> -->
+
+  <div class="outer" style="flex-direction: column;">
+
+    <div class="brick">
+      header
+    </div>
+
+    <div class="outer">
+      <div style=" width: 20%">
+        <label for="file">Select file for segmentation:</label>
+        <input type="file" id="fileInput" name="file"><br><br>
+        <input type="submit" value="Submit" onclick="uploadFile()" />
+      </div>
+
+      <div style="width: 80%">
+        center
+      </div>
+
+    </div>
+    <div>
+      footer
+    </div>
+
+  </div>
+
+  <!-- <form> -->
+  <!-- <label for="lname">Last name:</label>  -->
+  <!-- <input type="text" id="lname" name="lname"><br><br> -->
+
+  <!-- </form> -->
+
+  <!-- <p>Click the "Submit" button and the form-data will be sent to a page on the
+    server called "action_page.php".</p> -->
+
+
+  <!-- <p id="demo">
+    Hej hej
+  </p> -->
+</body>
+
+</html>
